@@ -4,10 +4,11 @@
 #include <time.h>
 
 int main(){
-  int size;
+  int size, r, count = 0;
   int* data;
   int* cp;
   bool* num;
+  bool sorted;
   srand(time(NULL));
 
   printf("How many numbers to sort?\n");
@@ -25,7 +26,6 @@ int main(){
     *(cp+i) = *(data+i);
   }
 
-  bool sorted = false;
   while(!sorted){
     sorted = true;
     for(int i = 0; i<size-1; i++){ //Check if data is sorted
@@ -34,23 +34,25 @@ int main(){
       }
     }
     if(!sorted){ //Randomly permutate data
-      for(int i = 0; i<size; i++){
+      for(int i = 0; i<size; i++){ //Check all values as not copied yet
         *(num+i) = false;
       }
-      for(int r, i = 0; i<size; i++){
-        r = rand()%(size-i);
-        if(*(num+i)){
-          *(data+i) = *(cp+i);
-          printf("%d ", *(data+i));
-          *(num+i) = true;
+      count = 0;
+      while(count<size){
+        r = rand()%size;
+        if(!*(num+r)){ //Check if random value is copied
+          *(data+count) = *(cp+r); //Copy
+          *(num+r) = true; //Check as copied
+          count++;
         }
       }
     }
   }
 
-  for(int i = 0; i<size; i++){
-    printf("%d\n",*(data+i));
+  for(int i = 0; i<size; i++){ //Print sorted data
+    printf("%d ",*(data+i));
   }
+  printf("\n");
 
   free(data);
   free(num);
