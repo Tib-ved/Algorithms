@@ -1,7 +1,7 @@
 /*
 Kashyap Nasit
 03/08/2018
-Program for implement stack
+Program for implement stack using array.
 */
 #include<stdio.h>
 #define stkSize 100
